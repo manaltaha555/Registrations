@@ -1,302 +1,174 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:registration/view/components/app_color.dart';
 import 'package:registration/view/components/elevated_button.dart';
-import 'package:registration/view/components/textFormField.dart'
-    show buildTextFormField;
 
-class LogIn extends StatefulWidget {
-  @override
-  State<LogIn> createState() => _LogInState();
-}
-
-class _LogInState extends State<LogIn> {
-  final formKey = GlobalKey<FormState>();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  bool isObsecure = true;
-  bool isChecked = false;
+class LogIn extends StatelessWidget {
+  const LogIn({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.surface,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 30),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 90),
-                child: Text(
-                  "Create an account",
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
-                    color: AppColor.title,
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.7),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 90, bottom: 16),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      gradient: LinearGradient(
+                        colors: [Color(0XFF14B4E9), Color(0XFF30DDFE)],
+                      ),
+                    ),
+                    child: Text(
+                      "BALA",
+                      style: TextStyle(
+                        color: AppColor.title,
+                        fontFamily: 'Inter',
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 48),
-                child: Text(
-                  "Join us and explore new possibilities!",
+                Text(
+                  "Login to your account",
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: AppColor.title,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  "Welcome back! Please enter your details.",
                   style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColor.subtitle,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-              ),
-              Form(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: buildTextFormField(
-                        controller: email,
-                        hint: "Enter your email",
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter email';
-                          } else if (!RegExp(
-                            r'^[^@]+@[^@]+\.[^@]+',
-                          ).hasMatch(value)) {
-                            return 'Enter valid email';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: buildTextFormField(
-                        controller: password,
-                        hint: "Enter your password",
-                        isObsecure: isObsecure,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter password';
-                          }
-                          return null;
-                        },
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            isObsecure
-                                ? Icons.visibility_off_outlined
-                                : Icons.remove_red_eye_outlined,
-                            color: Colors.white.withValues(alpha: 0.5),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              isObsecure = !isObsecure;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Forgot Password",
-                            style: TextStyle(
-                              color: AppColor.primary,
-                              fontFamily: "Inter",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: buildElevatedButton(
-                        text: "Create account",
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 48),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isChecked = !isChecked;
-                              });
-                            },
-                            icon:
-                                isChecked
-                                    ? SvgPicture.asset(
-                                      'assets/icons/checked.svg',
-                                      width: 12,
-                                      height: 12,
-                                    )
-                                    : SvgPicture.asset(
-                                      'assets/icons/unchecked.svg',
-                                      height: 12,
-                                      width: 12,
-                                    ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "I agree to the ",
-                                  style: TextStyle(
-                                    color: AppColor.subtitle,
-                                    fontFamily: 'Inter',
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "Privacy Policy ",
-                                  style: TextStyle(
-                                    color: AppColor.primary,
-                                    fontFamily: 'Inter',
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "and ",
-                                  style: TextStyle(
-                                    color: AppColor.subtitle,
-                                    fontFamily: 'Inter',
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "Terms of Service",
-                                  style: TextStyle(
-                                    color: AppColor.primary,
-                                    fontFamily: 'Inter',
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: AppColor.border,
-                            thickness: 1,
-                            height: 1,
-                            indent: 0.0, // Start padding
-                            endIndent: 20.0,
-                          ),
-                        ),
-                        Text(
-                          "OR",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColor.subtitle,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: AppColor.border,
-                            thickness: 1,
-                            height: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.only(right: 16),
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor.surface,
-                              border: Border.all(color: AppColor.border),
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/icons/google.svg',
-                              colorFilter: ColorFilter.mode(
-                                Colors.white,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor.surface,
-                              border: Border.all(color: AppColor.border),
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/icons/apple.svg',
-                              colorFilter: ColorFilter.mode(
-                                Colors.white,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already have an account?",
-                          style: TextStyle(
-                            color: AppColor.subtitle,
-                            fontFamily: 'Inter',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Log in",
-                            style: TextStyle(
-                              color: AppColor.primary,
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          Positioned(
+            top: 485,
+            bottom: 16,
+            right: 32,
+            left: 32,
+            child: Column(
+              children: [
+                buildElevatedButton(
+                  text: "Login",
+                  horizontal: 120,
+                  onPressed: () {},
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 35,
+                        vertical: 18,
+                      ),
+                      backgroundColor: Color(
+                        0XFFBDE2EC,
+                      ).withValues(alpha: 0.12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: SvgPicture.asset('assets/icons/google.svg'),
+                        ),
+                        Text(
+                          "Continue with Google",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: AppColor.title,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      backgroundColor: Color(0XFFBDE2EC).withValues(alpha: 0.12),
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: SvgPicture.asset('assets/icons/apple.svg'),
+                        ),
+                        Text(
+                          "Continue with Apple",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: AppColor.title,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "Sign Up",
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      color: AppColor.primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
