@@ -4,12 +4,15 @@ import 'package:registration/view/components/app_color.dart';
 ElevatedButton buildElevatedButton({
   required String text,
   required VoidCallback onPressed,
+  double? horizontal = 80,
+  double? vertical = 16,
+  double? borderRadius = 12
 }) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColor.primary,
-      padding: EdgeInsets.symmetric(horizontal: 80, vertical: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      padding: EdgeInsets.symmetric(horizontal: horizontal!, vertical: vertical!),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius!)),
     ),
     onPressed: onPressed,
     child: Text(
