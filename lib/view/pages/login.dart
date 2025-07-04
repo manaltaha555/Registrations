@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:registration/view/components/app_color.dart';
 import 'package:registration/view/components/elevated_button.dart';
+import 'package:registration/view/pages/phone_number.dart';
 
 class LogIn extends StatelessWidget {
   const LogIn({super.key});
@@ -87,7 +88,12 @@ class LogIn extends StatelessWidget {
                 buildElevatedButton(
                   text: "Login",
                   horizontal: 120,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PhoneNumber()),
+                    );
+                  },
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -128,18 +134,29 @@ class LogIn extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 16),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 18),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 35,
+                        vertical: 18,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      backgroundColor: Color(0XFFBDE2EC).withValues(alpha: 0.12),
+                      backgroundColor: Color(
+                        0XFFBDE2EC,
+                      ).withValues(alpha: 0.12),
                     ),
                     onPressed: () {},
                     child: Row(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: SvgPicture.asset('assets/icons/apple.svg'),
+                          child: SvgPicture.asset(
+                            'assets/icons/apple.svg',
+                            colorFilter: ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.srcIn,
+                            ),
+                          ),
                         ),
                         Text(
                           "Continue with Apple",
