@@ -32,7 +32,7 @@ TextFormField buildTextFormField({
         fontFamily: 'Inter',
       ),
       errorStyle: TextStyle(
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: FontWeight.w400,
         fontFamily: 'Inter',
       ),
