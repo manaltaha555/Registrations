@@ -1,28 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:registration/view/components/app_color.dart';
+import 'dart:core';
 
-ElevatedButton buildElevatedButton({
-  required String text,
-  required VoidCallback onPressed,
-  double? horizontal = 80,
-  double? vertical = 16,
-  double? borderRadius = 12
-}) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: AppColor.primary,
-      padding: EdgeInsets.symmetric(horizontal: horizontal!, vertical: vertical!),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius!)),
-    ),
-    onPressed: onPressed,
-    child: Text(
-      text,
-      style: TextStyle(
-        fontFamily: 'Inter',
-        color: AppColor.title,
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
+import 'package:flutter/material.dart';
+
+class BuildElevatedButton extends StatelessWidget {
+  Widget child;
+  VoidCallback onPressed;
+  double horizontal;
+  double vertical;
+  double borderRadius;
+  Color color;
+  BuildElevatedButton({
+    super.key,
+    required this.child,
+    required this.onPressed,
+    required this.color,
+    this.horizontal = 80,
+    this.borderRadius = 12,
+    this.vertical = 16,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontal,
+          vertical: vertical,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
       ),
-    ),
-  );
+      onPressed: onPressed,
+      child: child
+    );
+  }
 }
